@@ -1,6 +1,9 @@
 package global
 
-import "github.com/xm-chentl/eddydoor/internal/model/enum/datastatus"
+import (
+	"github.com/xm-chentl/eddydoor/internal/model/enum/datastatus"
+	"github.com/xm-chentl/eddydoor/internal/model/views"
+)
 
 type User struct {
 	ID        string           `gorm:"column:id;primaryKey"`
@@ -23,4 +26,11 @@ func (m *User) SetID(v interface{}) {
 
 func (m User) Table() string {
 	return "users"
+}
+
+func (m User) ToResponse() views.ResponseUser {
+	return views.ResponseUser{
+		Nickname: m.Nickname,
+		Phone:    m.Phone,
+	}
 }

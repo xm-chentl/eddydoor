@@ -10,13 +10,13 @@ import (
 	"github.com/xm-chentl/eddydoor/internal/model/enum/formats"
 	"github.com/xm-chentl/eddydoor/internal/model/global"
 	"github.com/xm-chentl/eddydoor/internal/response"
-	"github.com/xm-chentl/eddydoor/utils/redisex"
+	"github.com/xm-chentl/eddydoor/plugin/redisex"
 	"github.com/xm-chentl/goresource"
 )
 
 type GetLoginSMSCodeAPI struct {
 	RedisImp redisex.IRedis       `inject:""`
-	MySqlDb  goresource.IResource `inject:""`
+	MySqlDb  goresource.IResource `inject:"mysql"`
 
 	Phone string `json:"phone" validate:"required"`
 }

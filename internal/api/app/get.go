@@ -7,7 +7,7 @@ import (
 )
 
 type GetAPI struct {
-	contract.ISession
+	contract.IUserSession
 }
 
 func (s GetAPI) Call(ctx context.Context) (res interface{}, err error) {

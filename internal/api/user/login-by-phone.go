@@ -7,19 +7,19 @@ import (
 	"strings"
 	"time"
 
-	"github.com/spf13/viper"
+	"github.com/xm-chentl/eddydoor/internal/config"
 	"github.com/xm-chentl/eddydoor/internal/model/enum/formats"
 	"github.com/xm-chentl/eddydoor/internal/model/global"
 	"github.com/xm-chentl/eddydoor/internal/response"
 	"github.com/xm-chentl/eddydoor/internal/service/usersvc"
-	"github.com/xm-chentl/eddydoor/utils/redisex"
+	"github.com/xm-chentl/eddydoor/plugin/redisex"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/xm-chentl/goresource"
 )
 
 type LoginByPhoneAPI struct {
-	MySqlDb  goresource.IResource `inject:""`
+	MySqlDb  goresource.IResource `inject:"mysql"`
 	RedisImp redisex.IRedis       `inject:""`
 
 	Phone   string `json:"phone" validate:"required"`
@@ -49,19 +49,21 @@ func (s LoginByPhoneAPI) Call(ctx context.Context) (res interface{}, err error) 
 	}
 
 	loginTime := time.Now()
-	expiredAt := loginTime.Add(5 * time.Minute)
+	expiredAt := loginTime.Add(config.Cfg.Secret.Expired * time.Minute)
 	// 生成token
 	user := usersvc.LoginUser{
 		ID:        entry.ID,
 		Phone:     entry.Phone,
 		Nickname:  entry.Nickname,
 		LoginTime: loginTime.Unix(),
-		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: expiredAt.Unix(),
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: &jwt.NumericDate{
+				Time: expiredAt,
+			},
 		},
 	}
 	tokenImp := jwt.NewWithClaims(jwt.SigningMethodHS256, user)
-	token, err := tokenImp.SignedString([]byte(viper.GetString("private.secret")))
+	token, err := tokenImp.SignedString([]byte(config.Cfg.Secret.User))
 	if err != nil {
 		log.Fatal(err)
 		err = response.ErrTokenGenerateFailed

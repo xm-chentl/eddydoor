@@ -7,7 +7,7 @@ import (
 
 	"github.com/xm-chentl/eddydoor/internal/model/enum/formats"
 	"github.com/xm-chentl/eddydoor/internal/response"
-	"github.com/xm-chentl/eddydoor/utils/redisex"
+	"github.com/xm-chentl/eddydoor/plugin/redisex"
 )
 
 type GetRegisterSMSCodeAPI struct {
@@ -18,8 +18,8 @@ type GetRegisterSMSCodeAPI struct {
 }
 
 func (s GetRegisterSMSCodeAPI) Call(ctx context.Context) (res interface{}, err error) {
+	// todo: 设计防刷的策略
 	// 保存至redis用于验证，有效时间为60秒 key: login_sms_code_{phone} value: sms_code
-
 	code := GenValidateCode(6)
 	if err = s.RedisImp.Set(ctx, fmt.Sprintf(formats.SMSRegister.String(), s.Phone), code, time.Minute); err != nil {
 		err = response.ErrSMSCodeValid

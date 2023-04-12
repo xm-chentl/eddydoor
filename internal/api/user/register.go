@@ -10,15 +10,15 @@ import (
 	"github.com/xm-chentl/eddydoor/internal/model/enum/formats"
 	"github.com/xm-chentl/eddydoor/internal/model/global"
 	"github.com/xm-chentl/eddydoor/internal/response"
+	"github.com/xm-chentl/eddydoor/plugin/redisex"
 	"github.com/xm-chentl/eddydoor/utils/guidex"
-	"github.com/xm-chentl/eddydoor/utils/redisex"
 
 	"github.com/xm-chentl/goresource"
 )
 
 type RegisterAPI struct {
 	RedisImp redisex.IRedis       `inject:""`
-	MySql    goresource.IResource `inject:""`
+	MySql    goresource.IResource `inject:"mysql"`
 	GuidImp  guidex.IGenerate     `inject:""`
 
 	Phone   string `json:"phone" validate:"required"`

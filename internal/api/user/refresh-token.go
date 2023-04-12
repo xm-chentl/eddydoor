@@ -7,7 +7,7 @@ import (
 )
 
 type RefreshTokenAPI struct {
-	contract.ISession
+	contract.IUserSession
 }
 
 func (s RefreshTokenAPI) Call(ctx context.Context) (res interface{}, err error) {
