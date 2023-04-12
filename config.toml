@@ -1,0 +1,18 @@
+[runtime]
+    server = "eddydoor"
+    port = 8899
+[secret]    
+    admins = "oauth.admin.xmwuyi.com"
+    user = "oauth.xmwuyi.com"
+    loginExpired = 30 # 过期时间30分钟后
+    
+[resource]
+    # todo: 版本
+[resource.mysql]
+    dsn = "root:123456@tcp(localhost:3308)/eddydoor"
+
+[resource.mongodb]
+    dsn = "mongodb://localhost:27017"
+
+[resource.redis]
+    addr = "localhost:6379"
