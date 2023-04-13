@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/redis/go-redis/v9"
-	"github.com/xm-chentl/eddydoor/plugin/redisex"
+	"github.com/xm-chentl/eddydoor/utils/redisex"
 )
 
 type redisImp struct {

@@ -10,8 +10,8 @@ import (
 	"github.com/xm-chentl/eddydoor/internal/model/enum/formats"
 	"github.com/xm-chentl/eddydoor/internal/model/global"
 	"github.com/xm-chentl/eddydoor/internal/response"
-	"github.com/xm-chentl/eddydoor/plugin/redisex"
 	"github.com/xm-chentl/eddydoor/utils/guidex"
+	"github.com/xm-chentl/eddydoor/utils/redisex"
 
 	"github.com/xm-chentl/goresource"
 )

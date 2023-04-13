@@ -12,7 +12,7 @@ import (
 	"github.com/xm-chentl/eddydoor/internal/model/global"
 	"github.com/xm-chentl/eddydoor/internal/response"
 	"github.com/xm-chentl/eddydoor/internal/service/usersvc"
-	"github.com/xm-chentl/eddydoor/plugin/redisex"
+	"github.com/xm-chentl/eddydoor/utils/redisex"
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/xm-chentl/goresource"
